@@ -1,0 +1,54 @@
+@import url(https://db.onlinewebfonts.com/c/99501fdab737541e9315ceaf9229370f?family=Monument+Extended+Regular);
+@import url(https://db.onlinewebfonts.com/c/55d433372d270829c51e2577a78ef12d?family=Monument+Extended+Bold);
+
+body {
+    background-color: #000;
+    font-family: "Monument Extended Regular";
+    color: #fff;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.himg {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.himg p {
+    font-size: 1.25rem;
+    text-align: center;
+    width: 75vw;
+}
+a:link, a:visited {
+    text-decoration: none;
+    color: #FFFFFF;
+  }
+.projects {
+    width: 75vw;
+    height: 4rem;
+    background: #000;
+    transition: 0.25s linear;
+    border-radius: 1.25rem;
+    border: 1px solid #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.projects p {
+    font-family: "Monument Extended Bold";
+    font-size: 1.5rem;
+}
+.projects:hover{
+    filter: drop-shadow(0 0 0.5rem #ffffff);
+    border: 1px solid #FFF;
+    z-index: 1;
+}
