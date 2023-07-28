@@ -32,6 +32,7 @@ a:link, a:visited {
     color: #FFFFFF;
   }
 .projects {
+    margin:0 0 1rem 0;
     width: 75vw;
     height: 4rem;
     background: #000;
