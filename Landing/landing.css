@@ -175,7 +175,6 @@ body{
 
 .nav{
     position: fixed;
-    top: 1.5rem;
     width: 100vw;
     height:4rem;
     display: flex;
