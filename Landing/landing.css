@@ -2,14 +2,16 @@
     margin: 0;
     padding: 0;
 }
-body{
+
+body {
     font-family: Inter;
     width: 100vw;
     background: #1f2937;
     color: #ffffff;
     overflow-x: hidden;
 }
-.hero{
+
+.hero {
     width: 100%;
     height: 90vh;
     background: #1f2937;
@@ -18,7 +20,8 @@ body{
     align-items: center;
     gap: 3rem;
 }
-.hero .herocontent{
+
+.hero .herocontent {
     width: 35vw;
     height: 100%;
     display: flex;
@@ -27,80 +30,84 @@ body{
     flex-direction: column;
     gap: .5rem;
 }
-.hero .herocontent h2{
+
+.hero .herocontent h2 {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1rem;
 }
 
-.hero .herocontent p{
+.hero .herocontent p {
     font-size: 1.2rem;
     font-weight: 200;
     color: #dddddd;
 }
-.hero .herocontent button{
-    width:8rem;
+
+.hero .herocontent button {
+    width: 8rem;
     height: 2.5rem;
     border-radius: 0.5rem;
     background-color: #1d83ff;
     border: none;
-    color:#ffffff;
+    color: #ffffff;
     font-size: 1.125rem;
     font-weight: bold;
 }
 
-.hero .heroimg{
+.hero .heroimg {
     width: 35vw;
     height: 16rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#dddddd;
+    background-color: #dddddd;
 }
 
-.info{
+.info {
     width: 100%;
     height: 50vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color:#ffffff;
+    background-color: #ffffff;
     color: #1f2937;
 }
-.info .allcards{
+
+.info .allcards {
     width: 60vw;
     height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 5rem;
- }
+}
 
-.info .allcards .card{
+.info .allcards .card {
     display: flex;
     flex-direction: column;
-    width:auto;
+    width: auto;
     height: 100%;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
 }
 
-.info .allcards .card .box{
+.info .allcards .card .box {
     border-radius: 1rem;
     border: 5px solid #1d83ff;
     width: 100%;
     height: 10rem;
 }
-.info .allcards .card p{
+
+.info .allcards .card p {
     font-size: 1rem;
     font-weight: 500;
-    color:#909090;
+    color: #909090;
     text-align: center;
 }
 
-.quote{
+.quote {
     width: 100%;
     height: 50vh;
     display: flex;
@@ -111,31 +118,33 @@ body{
     color: #1f2937;
 }
 
-.quote h2{
+.quote h2 {
     text-align: left;
     font-size: 2rem;
-    font-weight:200;
-    width:55vw;
+    font-weight: 200;
+    width: 55vw;
     font-style: italic;
 }
-.quote p{
+
+.quote p {
     text-align: right;
     font-size: 1.5rem;
     font-weight: 700;
-    width:55vw;
+    width: 55vw;
 }
 
-.signup{
+.signup {
     width: 100%;
     height: 40vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#ffffff;
+    background-color: #ffffff;
     color: #ffffff;
 }
+
 .signup .box {
-    width:60vw;
+    width: 60vw;
     border-radius: 1rem;
     background-color: #1d83ff;
     height: 8rem;
@@ -143,16 +152,19 @@ body{
     justify-content: space-around;
     align-items: center;
 }
-.signup .box h2{
+
+.signup .box h2 {
     font-size: 1.5rem;
     font-weight: 700;
 }
-.signup .box p{
+
+.signup .box p {
     font-size: 1rem;
     font-weight: 200;
     text-align: left;
 }
-.signup .box button{
+
+.signup .box button {
     width: 8rem;
     height: 2.5rem;
     border-radius: 0.5rem;
@@ -164,7 +176,7 @@ body{
     color: #ffffff;
 }
 
-.footer{
+.footer {
     width: 100%;
     height: 10vh;
     display: flex;
@@ -173,23 +185,25 @@ body{
     color: #dddddd;
 }
 
-.nav{
+.nav {
     position: fixed;
     width: 100vw;
-    height:4rem;
+    height: 4rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #1d83ff;
     color: #ffffff;
 }
-.nav .logo{
+
+.nav .logo {
     position: relative;
     left: 2rem;
     font-size: 1.25rem;
     font-weight: 700;
 }
-.nav .links{
+
+.nav .links {
     position: relative;
     right: 3rem;
     float: right;
@@ -199,20 +213,29 @@ body{
     gap: 2rem;
 }
 
-.nav .links ul{
+.nav .links ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
 }
 
-.nav .links ul li{
+.nav .links ul li {
     list-style: none;
     font-size: 1.125rem;
     font-weight: 500;
 }
 
-.nav .links ul li a{
+.nav .links ul li a {
     text-decoration: none;
     color: #ffffff;
+}
+
+.btm {
+    width: 3rem;
+    height: 3rem;
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 1;
 }
