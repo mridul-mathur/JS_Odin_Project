@@ -1,6 +1,8 @@
 const moves = ['rock', 'paper', 'scissors'];
 let playerScore = 0;
 let computerScore = 0;
+console.log('Welcome to Rock, Paper, Scissors');
+console.log('First to 5 wins');
 const winner = [
     {
         name: 'rock',
