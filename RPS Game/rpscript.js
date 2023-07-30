@@ -41,16 +41,14 @@ function playRound(playermove, compmove) {
     console.log('Player score: ' + playerScore);
     console.log('Computer score: ' + computerScore);
 }
-for (let round = 0; round < 5; round++) {
-    console.log('Round ' + (round + 1));
+while(true){
     playRound(playermove(), computermove());
-}
-    if (playerScore > computerScore) {
+    if (playerScore == 5) {
         console.log('Player wins the game');
+        break;
     }
-    else if (playerScore < computerScore) {
+    else if (computerScore == 5) {
         console.log('Computer wins the game');
+        break;
     }
-    else {
-        console.log('Draw');
-    }
+}
