@@ -43,14 +43,16 @@ function playRound(playermove, compmove) {
     console.log('Player score: ' + playerScore);
     console.log('Computer score: ' + computerScore);
 }
-while(true){
+while (true) {
     playRound(playermove(), computermove());
-    if (playerScore == 5) {
-        console.log('Player wins the game');
-        break;
-    }
-    else if (computerScore == 5) {
-        console.log('Computer wins the game');
-        break;
+    if (playerScore == 5 || computerScore == 5) {
+        if (playerScore == 5) {
+            console.log('Player wins the game');
+            break;
+        }
+        else {
+            console.log('Computer wins the game');
+            break;
+        }
     }
 }
