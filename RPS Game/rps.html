@@ -1,15 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissor</title>
     <link rel="stylesheet" href="/RPS Game/rpstyle.css">
 </head>
+
 <body>
     <a href="/index.html">
         <img src="/Recipies/back.svg" alt="" class="btm">
     </a>
+    <div class="heading">
+        <h1>Rock Paper Scissor</h1>
+    </div>
+    <div class="game">
+        <h1>Choose Your Move:</h1>
+        <div class="playermove">
+            <div class="move">
+                <p id="r"> ✊ </p>
+            </div>
+            <div class="move">
+                <p id="p"> ✋ </p>
+            </div>
+            <div class="move">
+                <p id="s"> ✌️ </p>
+            </div>
+        </div>
+        <h1>Computer Move:</h1>
+        <div class="move" id="compmove">
+            <p> ✊ </p>
+        </div>
+    </div>
+    <div class="score">
+        <span id="user">
+            0
+        </span>
+        :
+        <span id="comp">
+            0
+        </span>
+    </div>
     <script src="/RPS Game/rpscript.js"></script>
 </body>
+
 </html>
