@@ -1,65 +1,47 @@
-let playerScore = 0;
-let computerScore = 0;
-
-const playerScore_span = document.getElementById("user");
-const computerScore_span = document.getElementById("comp");
-const scoreBoard_div = document.querySelector('.score');
-const compMove_div = document.querySelector('.compmove');
-
-const rock_div = document.getElementById('r');
-const paper_div = document.getElementById('p');
-const scissor_div = document.getElementById('s');
-
-function compMove(){
-    const compMove = ['r', 'p', 's'];
-    const numb = Math.floor(Math.random() * 3);
-    return compMove[numb];
-}
-
-function win(playermove , computerMove){
-    playerScore++;
-    playerScore_span.innerHTML = playerScore;
-    computerScore_span.innerHTML = computerScore;
-}
-
-function lose(playermove,computerMove){
-    computerScore++;
-    computerScore_span.innerHTML = computerScore;
-    playerScore_span.innerHTML = playerScore;
-}
-
-function draw(playermove,computerMove){
-}
-function game(playermove){
-    const computerMove = compMove();
-    switch(playermove + computerMove){
-        case 'pr':
-        case 'sp':
-        case 'rs':
-            win(playermove,computerMove);
-            break;
-        case 'rp':
-        case 'ps':
-        case 'rs':
-            loss(playermove,computerMove);
-            break;
-        case 'pp':
-        case 'rr':
-        case 'ss':
-            draw(playermove,computerMove);
-            break;
-    }
-}
-game('p');
-function plMove() {
-    rock_div.addEventListener('click', function () {
-        console.log('Rock');
+window.addEventListener("DOMContentLoaded", () => {
+  let move;
+  var pmove = document.getElementsByClassName("move");
+  let cmove = document.getElementById("cmove");
+  let user = document.getElementById("user");
+  let computer = document.getElementById("comp");
+  let userScore = 0;
+  let computerScore = 0;
+  function computerMove() {
+    let random = Math.floor(Math.random() * 3);
+    return random;
+  }
+  pmove = Array.from(pmove);
+  pmove.forEach((element) => {
+    element.addEventListener("click", () => {
+      let moves = ["✊", "✋", "✌️"];
+      move = element.children[0].innerText;
+      console.log(`your move: ${move}`);
+      compmove = computerMove();
+      cmove.innerText = moves[compmove];
+      console.log(`computer move: ${moves[compmove]}`);
+      if (userScore == 5) {
+        userScore = 0;
+        computerScore = 0;
+        user.innerText = userScore;
+        computer.innerText = computerScore;
+        alert("You win!");
+      } else if (computerScore == 5) {
+        userScore = 0;
+        computerScore = 0;
+        user.innerText = userScore;
+        computer.innerText = computerScore;
+        alert("You lose!");
+      }
+      if ((compmove == 0 && move == "✊") || (compmove == 1 && move == "✋") || (compmove == 2 && move == "✌️")) {
+        user.innerText = userScore;
+        computer.innerText = computerScore;
+      } else if ((compmove == 0 && move == "✌️") || (compmove == 1 && move == "✊") || (compmove == 2 && move == "✋")) {
+        userScore++;
+        user.innerText = userScore;
+      } else {
+        computerScore++;
+        computer.innerText = computerScore;
+      }
     });
-    paper_div.addEventListener('click', function () {
-        console.log('Paper');
-    });
-    scissor_div.addEventListener('click', function () {
-        console.log('Scissors ');
-    });
-}
-plMove();
+  });
+});
