@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter Tight", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: semi-bold;
+  font-style: normal;
+}
+
+#btn {
+  padding: 0.75rem;
+  gap: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  border: 0.1rem solid #194770;
+}
+
+.btn-white {
+  background: #ffffff;
+  color: #194770;
+}
+.btn-white:hover {
+  background: #194770;
+  color: #ffffff;
+}
+
+.btn-black {
+  background: #194770;
+  color: #ffffff;
+}
+.btn-black:hover {
+  background: #ffffff;
+  color: #194770;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 3rem;
+  padding: 0;
+  margin: 0;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  font-weight: 300;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.border-prime {
+  border: 0.1rem solid #194770;
+}

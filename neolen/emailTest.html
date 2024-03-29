@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Test | Neolen</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <script async src="./script.js"></script>
+  </head>
+  <body
+    class="d-flex flex-column justify-content-between align-items-center"
+    style="gap: 8rem"
+  >
+    <!-------------------------------------hero Section begins-------------------------------------->
+
+    <div
+      id="hero"
+      class="text-wrap col-md-12 col-xl-12 d-flex flex-column justify-content-center align-items-center gap-5 py-5 h-100"
+      style="background: url(./assets/back.svg) no-repeat center/cover"
+    >
+      <h1 class="display-1 text-center fw-bold bg-white col-sm-6 col-11">
+        Free Email Spam Test & Checker
+      </h1>
+      <div
+        class="col-md-9 col-sm-10 col-11 d-flex flex-column justify-content-center align-items-center gap-2"
+      >
+        <h2 class="text-center fw-bold bg-white col-md-6 col-11">
+          Get Started with Your First Test
+        </h2>
+        <div
+          class="d-flex flex-column justify-content-center align-items-center col-11 col-md-9 col-xl-6 gap-4"
+        >
+          <div class="d-flex flex-column gap-2 bg-white col-12">
+            <p class="fw-semibold col-12">
+              Step 1 : Insert this code anywhere inside your email
+            </p>
+            <div
+              class="col-12 d-flex flex-row justify-content-between align-items-center bg-white rounded-3 fw-light border-prime p-2 g-2"
+            >
+              <div
+                id="myText1"
+                class="d-flex align-items-center justify-content-center hidden text-wrap overflow-auto"
+              >
+                <p class="m-0 p-0 flex-nowrap" id="text1">
+                  mlrch-8d80ac3cc6063d70088
+                </p>
+              </div>
+              <button id="copyBtn1" class="btn btn-black">
+                <span class="material-symbols-outlined"> content_copy </span>
+              </button>
+            </div>
+          </div>
+          <div class="col-12 d-flex flex-column gap-2 bg-white">
+            <p class="fw-semibold col-12">
+              Step 2 : Send your email to these addresses
+            </p>
+            <div
+              class="col-12 d-flex flex-row justify-content-center align-items-center bg-white rounded-3 fw-light border-prime p-2 g-2"
+            >
+              <div
+                id="myText2"
+                class="d-flex align-items-center justify-content-center w-100 hidden overflow-x-auto text-wrap"
+                style="height: 6rem"
+              ></div>
+              <button id="copyBtn2" class="btn btn-black">
+                <span class="material-symbols-outlined"> content_copy </span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="d-flex flex-row justify-content-between align-items-center col-12 px-1 bg-white"
+          >
+            <select
+              name="Change Seperator Format"
+              id="emailformat"
+              style="font-size: 0.75rem"
+              class="border-0 rounded-3 fw-semibold fs-6 m-0 p-0 col-8"
+            >
+              <option value="" selected disabled hidden>
+                Change Seperator Format
+              </option>
+              <option value="comma">Comma(,)</option>
+              <option value="semicolon">Semicolon(;)</option>
+              <option value="colon">Colon(:)</option>
+              <option value="pipe">Pipe(|)</option>
+              <option value="tab">Tab(\t)</option>
+            </select>
+            <button
+              id="export"
+              class="fw-semibold fs-6 col-2 cursor-pointer border-0 bg-white rounded-3"
+            >
+              Export
+            </button>
+          </div>
+          <button
+            id="btn"
+            class="col-11 btn-black d-flex flex-row justify-content-center align-items-center rounded-3"
+          >
+            View Spam Report →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-------------------------------------hero Section ends-------------------------------------->
+
+    <!-------------------------------------features Section begins-------------------------------------->
+
+    <div
+      class="d-flex flex-column justify-content-between align-items-center row col-md-10 col-sm-10 col-11 gap-5 py-4"
+    >
+      <h1 class="col-12">Better deliverability means more business.</h1>
+      <div
+        id="services"
+        class="row d-flex flex-row align-item-center justify-content-center gap-2"
+      >
+        <div
+          class="col-xl-3 col-md-5 col-12 rounded-3 p-4 border-prime d-flex flex-column justify-content-between align-items-center"
+        >
+          <div class="d-flex flex-column gap-2 col-12">
+            <h2>Find out your spam score and where your emails land</h2>
+            <p>
+              Run an email spam test with the major email providers (Google,
+              Outlook, etc.)
+            </p>
+          </div>
+          <img src="./assets/spam-score.svg" alt="" class="img-fluid col-6" />
+        </div>
+        <div
+          class="col-xl-3 col-md-5 col-12 rounded-3 p-4 border-prime d-flex flex-column justify-content-between align-items-center"
+        >
+          <div class="d-flex flex-column gap-2">
+            <h2>Get insights to improve your deliverability</h2>
+            <p>
+              Our email spam test gives you recommendations to improve your
+              score.
+            </p>
+          </div>
+          <img class="img-fluid h-auto w-50" src="./assets/get-insights.svg" />
+        </div>
+        <div
+          class="col-xl-3 col-md-5 col-12 rounded-3 p-4 border-prime d-flex flex-column justify-content-between align-items-center"
+        >
+          <div class="d-flex flex-column gap-2">
+            <h2>Enjoy better results from your emails</h2>
+            <p>
+              Get higher open rates and improve your overall results such as
+              click, reply and lead rates.
+            </p>
+          </div>
+          <img
+            src="./assets/better-result.svg"
+            alt=""
+            class="img-fluid h-auto w-50"
+          />
+        </div>
+        <div
+          class="col-xl-3 col-md-5 col-12 rounded-3 p-4 border-prime d-flex flex-column justify-content-between align-items-center"
+        >
+          <div class="d-flex flex-column gap-2">
+            <h2>
+              Use our email spam test to find out your real inbox placement.
+            </h2>
+            <p>
+              A proper spam test has to be done by sending an email to a list of
+              inboxes, otherwise it's biased and sub-optimal.
+            </p>
+          </div>
+          <img
+            src="./assets/inbox-placement.svg"
+            alt=""
+            class="img-fluid h-auto w-50"
+          />
+        </div>
+        <div
+          class="col-xl-3 col-md-5 col-12 rounded-3 p-4 border-prime d-flex flex-column justify-content-between align-items-center"
+        >
+          <div class="d-flex flex-column gap-2">
+            <h2>
+              Improve your emails, multiply your open rates and make more sales.
+            </h2>
+            <p>
+              Use our email spam test to iterate and make changes to your email
+              until you reach the best inbox placement.
+            </p>
+          </div>
+          <img
+            src="./assets/improve-sales.svg"
+            alt=""
+            class="img-fluid h-auto w-50"
+          />
+        </div>
+        <div
+          class="col-xl-3 col-md-5 col-12 rounded-3 p-4 border-prime d-flex flex-column justify-content-between align-items-center"
+        >
+          <div class="d-flex flex-column gap-2">
+            <h2>Monitor your deliverability with automatic spam tests.</h2>
+            <p>
+              Test your emails automatically on a regular basis to track the
+              deliverability of your emails and be notified on Slack or your app
+              using webhooks.
+            </p>
+          </div>
+          <img
+            src="./assets/automate.svg"
+            alt=""
+            class="img-fluid h-auto w-50"
+          />
+        </div>
+      </div>
+      <div
+        class="d-flex justify-content-center align-items-center row col-11 gap-4"
+      >
+        <button
+          id="btn"
+          class="btn-white col-auto d-flex flex-row justify-content-center align-items-center rounded-3"
+        >
+          Launch Spam Test
+        </button>
+        <button
+          id="btn"
+          class="btn-black col-auto d-flex flex-row justify-content-center align-items-center rounded-3"
+        >
+          Read Documentation
+        </button>
+      </div>
+    </div>
+
+    <!-------------------------------------features Section ends-------------------------------------->
+
+    <!-------------------------------------testi Section begins-------------------------------------->
+    <div
+      class="d-flex flex-column justify-content-between align-items-center col-md-9 col-sm-10 col-11 gap-5"
+    >
+      <h1>What our Users say about us</h1>
+      <div class="row justify-content-center gap-4">
+        <div
+          class="d-flex justify-content-center align-items-center rounded-3 col-xl-6 col-sm-11 col-11 border-prime h-100"
+        >
+          <img src="./assets/emails.svg" alt="" class="img-fluid col-11" />
+        </div>
+        <div
+          class="row flex-column align-items-center col-xl-6 col-sm-11 col-12 justify-content-center gap-2"
+        >
+          <div
+            class="rounded-3 row p-2 justify-content-between align-items-center border-prime"
+          >
+            <div
+              id="name"
+              class="row justify-content-center align-items-center col-md-3 col-sm-4 col-4"
+            >
+              <img
+                src="./assets/person3.svg"
+                alt=""
+                class="img-fluid col-lg-6 col-sm-6 col-4 p-0 m-0"
+              />
+              <p class="fw-bold col-4 p-0 m-0 ps-1">Name Surname</p>
+            </div>
+            <p class="col-md-9 col-sm-8 col-8">
+              "Neolen revolutionized my email marketing. With its powerful
+              features, campaigns are more targeted and engaging, leading to
+              higher conversions. A must-have for email success!"
+            </p>
+          </div>
+          <div
+            class="rounded-3 row p-2 justify-content-between align-items-center border-prime"
+          >
+            <div
+              id="name"
+              class="row justify-content-center align-items-center col-md-3 col-sm-4 col-4"
+            >
+              <img
+                src="./assets/person3.svg"
+                alt=""
+                class="img-fluid col-lg-6 col-sm-6 col-4 p-0 m-0"
+              />
+              <p class="fw-bold col-4 p-0 m-0 ps-1">Name Surname</p>
+            </div>
+            <p class="col-md-9 col-sm-8 col-8">
+              "Neolen revolutionized my email marketing. With its powerful
+              features, campaigns are more targeted and engaging, leading to
+              higher conversions. A must-have for email success!"
+            </p>
+          </div>
+          <div
+            class="rounded-3 row p-2 justify-content-between align-items-center border-prime"
+          >
+            <div
+              id="name"
+              class="row justify-content-center align-items-center col-md-3 col-sm-4 col-4"
+            >
+              <img
+                src="./assets/person3.svg"
+                alt=""
+                class="img-fluid col-lg-6 col-sm-6 col-4 p-0 m-0"
+              />
+              <p class="fw-bold col-4 p-0 m-0 ps-1">Name Surname</p>
+            </div>
+            <p class="col-md-9 col-sm-8 col-8">
+              "Neolen revolutionized my email marketing. With its powerful
+              features, campaigns are more targeted and engaging, leading to
+              higher conversions. A must-have for email success!"
+            </p>
+          </div>
+          <div
+            class="rounded-3 row p-2 justify-content-between align-items-center border-prime"
+          >
+            <div
+              id="name"
+              class="row col-sm justify-content-center align-items-center col-md-3 col-sm-4 col-4"
+            >
+              <img
+                src="./assets/person3.svg"
+                alt=""
+                class="img-fluid col-lg-6 col-sm-6 col-4 p-0 m-0"
+              />
+              <p class="fw-bold col-4 p-0 m-0 ps-1">Name Surname</p>
+            </div>
+            <p class="col-md-9 col-sm-8 col-8">
+              "Neolen revolutionized my email marketing. With its powerful
+              features, campaigns are more targeted and engaging, leading to
+              higher conversions. A must-have for email success!"
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-------------------------------------testi Section ends-------------------------------------->
+
+    <!-------------------------------------FAQ Section begins-------------------------------------->
+
+    <div
+      class="justify-content-center align-items-center row col-md-9 col-11 rounded-3 gap-2 py-4 border-prime"
+    >
+      <div
+        class="d-flex flex-column justify-content-center align-items-center col-md-8 col-11"
+      >
+        <div
+          class="justify-content-center align-items-center gap-2 col-12 col-md-11"
+        >
+          <h1 class="text-center col-12">Got any questions or queries?</h1>
+          <p class="col-12 text-center">
+            Refer to our most frequently asked questions from the experts.
+          </p>
+        </div>
+
+        <button id="btn" class="btn-white rounded-3 col-12 col-sm-auto mt-4">
+          Frequently Asked Questions
+        </button>
+      </div>
+      <img
+        src="./assets/ask-question.svg"
+        alt=""
+        class="img-fluid col-lg-4 col-6"
+      />
+    </div>
+
+    <!-------------------------------------FAQ Section ends-------------------------------------->
+
+    <!-------------------------------------footer Section begins-------------------------------------->
+    <div
+      class="d-flex flex-column justify-content-center align-items-center col-12"
+      style="height: 5rem; background: #000000"
+    ></div>
+    <!-------------------------------------footer Section ends-------------------------------------->
+  </body>
+</html>
