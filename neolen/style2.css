@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.bg-prime {
+  background: #194770;
+}
+.border-prime {
+  border: 0.1rem solid #194770;
+}
+.border-prime-bottom {
+  border-bottom: 0.1rem solid #194770;
+}
+.border-prime-top {
+  border-top: 0.1rem solid #194770;
+}
+.btn-light {
+  background: #ffffff;
+  color: #194770;
+  transition: all 0.3s;
+}
+.btn-light:hover {
+  background: #194770;
+  color: #ffffff;
+}
+
+.btn-dark {
+  background: #194770;
+  color: #ffffff;
+  transition: all 0.3s;
+}
+.btn-dark:hover {
+  background: #ffffff;
+  color: #194770;
+}
+
+p {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+}

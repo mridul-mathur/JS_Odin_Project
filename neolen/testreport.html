@@ -1,0 +1,735 @@
+{% extends "layout/base_frontend.html" %} {% load i18n %} {% load static %} {%
+block head_title %} {% trans "Email Warming | Email Report" %} {% endblock
+head_title %} {% block extra_head %} {{ block.super }}
+<style>
+  .super-emoji {
+    font-size: 2rem;
+    margin-right: 1rem;
+  }
+
+  .chart-container {
+    height: 250px;
+  }
+  .border-bottom-light {
+    border-bottom: 0.075rem solid #19477080;
+  }
+  .bg-prime {
+    background: #194770;
+  }
+  .border-prime {
+    border: 0.1rem solid #194770;
+  }
+  .border-prime-b {
+    border-bottom: 0.1rem solid #194770;
+  }
+  .border-prime-top {
+    border-top: 0.1rem solid #194770;
+  }
+  .btn-light {
+    background: none;
+    color: #194770;
+    transition: all 0.3s;
+  }
+  .btn-light:hover {
+    background: #194770;
+    color: #ffffff;
+  }
+
+  .btn-dark {
+    background: #194770;
+    color: #ffffff;
+    transition: all 0.3s;
+  }
+  .btn-dark:hover {
+    background: none;
+    color: #194770;
+  }
+  h1 {
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+  }
+  h2 {
+    font-size: 2.25rem;
+    margin: 0;
+    padding: 0;
+  }
+  h3 {
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+  h4 {
+    font-size: 1.75rem;
+    margin: 0;
+    padding: 0;
+  }
+  p {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+{% endblock extra_head %} {% block content %}
+
+<div id="main" class="row col-12 p-4 m-0 p-0 bg-white">
+  <div
+    id="PageHeader"
+    class="d-flex justify-content-between align-items-center col-12 my-2"
+  >
+    <h1 class=" ">Spam Test Report</h1>
+    <div id="btns" class="d-flex gap-3">
+      <div>
+        <span class="btn-dark border-prime p-2 rounded">Run New Test</span>
+      </div>
+      <div>
+        <span class="btn-light border-prime p-2 rounded"
+          >Check DNS Records</span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="col-12 row justify-content-between m-0 my-2 p-0">
+    <div class="col-8 row d-flex flex-column gap-3">
+      <div
+        id="overview"
+        class="col-12 flex-wrap d-flex justify-content-between p-2 m-0"
+      >
+        <div
+          id="totalScore"
+          class="col-3 shadow-sm bg-prime text-white p-3 rounded-3 gap-2 d-flex flex-column justify-content-between"
+        >
+          <p class="m-0 p-0">Total Score</p>
+          <h3 id="ts-value" class="m-0 p-0">{{response.final_score}}/10</h3>
+        </div>
+        <div
+          id="DeliverabilityScore"
+          class="col-3 shadow-sm border-prime border-1 p-3 rounded-3 gap-2 d-flex flex-column justify-content-between"
+          style="cursor: pointer"
+          onclick="scrollto('DeliverabilityReport')"
+        >
+          <p class="m-0 p-0">Deliverability Score</p>
+          <h3 id="deliver-value" class="m-0 p-0">
+            {{ response.delivery_score }}/10
+          </h3>
+        </div>
+        <div
+          id="DNSScore"
+          class="col-3 shadow-sm border-prime p-3 rounded-3 gap-2 d-flex flex-column justify-content-between"
+        >
+          <p class="m-0 p-0">DNS Score</p>
+          <h3 id="dns-value" class="m-0 p-0">{{ response.dns_score }}/10</h3>
+        </div>
+      </div>
+      <div
+        id="DNSreport"
+        class="col-12 p-0 d-flex flex-column rounded-3 border-prime gap-1"
+      >
+        <div
+          id="headerDNS"
+          class="col-12 p-2 px-4 d-flex flex-wrap justify-content-between align-items-center border-prime-b"
+        >
+          <div>
+            <h4 class="m-0 p-0">DNS records</h4>
+            <p class="m-0 p-0 fw-light" style="font-size: 0.75rem">
+              Last Updated {{ response.tld.updated_at }}
+            </p>
+          </div>
+          <div class="border-prime rounded btn-light px-2 py-1">
+            <i
+              class="link-icon mx-1"
+              style="width: 1rem; height: 1rem"
+              data-feather="refresh-cw"
+            ></i>
+            <span>Check DNS Records</span>
+          </div>
+        </div>
+        <div id="dnsRecordDetails" class="col-12 d-flex flex-column">
+          <div
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-2"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Blacklists -</h5>
+                <h5 id="BlacklistLength" class="m-0 p-0 fw-semibold">
+                  <script>
+                    if (Array.isArray({{response.blacklist_links}}) && Array.isArray({{response.blacklist_sending_ip}})) {
+                      document.getElementById('BlacklistLength').innerText = {{response.blacklist_links}}.length + {{response.blacklist_sending_ip}}.length;
+                    } else{
+                      document.getElementById('BlacklistLength').innerText = 0;
+                      if (!Array.isArray({{response.blacklist_links}})){
+                        console.log("Blacklist_links is not an Array type Object")
+                      }
+                      if (!Array.isArray({{response.blacklist_sending_ip}})){
+                        console.log("Blacklist_sending_ip is not an Array type Object")
+                      }
+                    }
+                  </script>
+                </h5>
+              </div>
+              <div
+                id="BlacklistsDetailsBtn"
+                class="border-prime rounded btn-light px-2 py-1 detail-div-btn"
+              >
+                Details
+              </div>
+            </div>
+            <div id="BlacklistsDetails" class="flex-column detail-div px-2">
+              <p>
+                Your email's server IP is listed in
+                {{response.blacklist_links|length}} blacklists
+              </p>
+              <p>
+                Your Domain is listed in
+                {{response.blacklist_sending_ip|length}} blacklists
+              </p>
+              <!--  -->
+            </div>
+          </div>
+
+          <div
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-2"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Checks</h5>
+                <h5 id="SuccessfulChecks" class="m-0 p-0 fw-semibold"></h5>
+              </div>
+              <div
+                id="ChecksDetailsBtn"
+                class="border-prime rounded btn-light px-2 py-1 detail-div-btn"
+              >
+                Details
+              </div>
+            </div>
+            <div id="ChecksDetails" class="flex-column detail-div px-2">
+              <p>
+                SPF check - we found a valid record at -
+                "{{response.domain.spf_value }}"
+              </p>
+              <p>
+                DKIM check - We found a record on selector -
+                "{{response.domain.dkim_selector }}"
+              </p>
+              <p>DMARC check - We found a record</p>
+              <!--  -->
+            </div>
+          </div>
+
+          <div
+            class="d-flex flex-column col-12 justify-content-between px-4 p-2"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Configurations</h5>
+              </div>
+              <div
+                id="ConfigDetailsBtn"
+                class="border-prime rounded btn-light px-2 py-1 detail-div-btn"
+              >
+                Details
+              </div>
+            </div>
+            <div id="ConfigDetails" class="flex-column detail-div px-2">
+              <p>Your mail server Reverse DNS is properly configured.</p>
+              <!--  -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="DeliverabilityReport"
+        class="col-12 p-0 m-0 d-flex flex-column rounded-3 border-prime gap-1"
+      >
+        <div
+          id="headerDeliverability"
+          class="col-12 m-0 p-0 row d-flex flex-column"
+        >
+          <div
+            class="p-2 px-4 m-0 d-flex flex-wrap justify-content-between align-items-center"
+          >
+            <div class="col-6 d-flex flex-column gap-1">
+              <h4 class="m-0 p-0">Deliverability Report</h4>
+              <p class="m-0 p-0 fw-light" style="font-size: 0.75rem">
+                Last Updated {{ response.created_at }}
+              </p>
+            </div>
+            <div class="border-prime rounded btn-light px-2 py-1">
+              <i
+                class="link-icon mx-1"
+                style="width: 1rem; height: 1rem"
+                data-feather="refresh-cw"
+              ></i>
+              <span>Check DNS Records</span>
+            </div>
+          </div>
+          <div
+            id="tags"
+            class="col-12 m-0 p-0 d-flex justify-content-between border-prime-top border-bottom-light"
+          >
+            <p
+              id="deliverOverview"
+              class="m-0 p-2 fw-semibold col-6 text-center text-decoration-underline bg-light"
+            >
+              Overview
+            </p>
+            <p
+              id="deliverDetails"
+              class="m-0 p-2 fw-semibold col-6 text-center"
+            >
+              Details
+            </p>
+          </div>
+        </div>
+        <div id="deliverReport"></div>
+      </div>
+      <div
+        id="ContentAnalysis"
+        class="col-12 p-0 d-flex flex-column rounded-3 border-prime gap-2"
+      >
+        <div
+          id="headerContentAnalysis"
+          class="col-12 p-2 px-4 d-flex flex-wrap justify-content-between align-items-center border-prime-b"
+        >
+          <div>
+            <h4 class="m-0 p-0">Content Analysis</h4>
+            <p class="m-0 p-0 fw-light" style="font-size: 0.75rem">
+              Last Updated 2024-03-29T05:45:25.301Z
+            </p>
+          </div>
+        </div>
+        <div id="ContentReport">
+          <div
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              id="contentAnalysisDetails"
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Spam Words -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.spamwords|length}}
+                </h5>
+              </div>
+              <div
+                id="spamWordsDetailsBtn"
+                class="border-prime rounded btn-light px-2 py-1 detail-div-btn"
+              >
+                Details
+              </div>
+            </div>
+            <div
+              id="spamWordsDetails"
+              class="detail-div flex-wrap gap-2 col-12 p-0 m-0 px-2"
+            ></div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Containing Links -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.links_results.details|length}}
+                </h5>
+              </div>
+              <div
+                id="containLinksDetailsBtn"
+                class="border-prime rounded btn-light px-2 py-1 detail-div-btn"
+              >
+                Details
+              </div>
+            </div>
+            <div
+              id="containLinksDetails"
+              class="detail-div flex-wrap gap-2 col-12 px-2"
+            ></div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Email Attachments -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{analysis_results.attachments|length}}
+                </h5>
+              </div>
+              <div
+                id="emailAttachmentsDetailsBtn"
+                class="border-prime rounded btn-light px-2 py-1 detail-div-btn"
+              >
+                Details
+              </div>
+            </div>
+            <div
+              id="emailAttachmentsDetails"
+              class="detail-div flex-wrap gap-2 col-12 px-2"
+            ></div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Images -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.images|length}}
+                </h5>
+              </div>
+              <div
+                id="imagesDetailsBtn"
+                class="border-prime rounded btn-light px-2 py-1 detail-div-btn"
+              >
+                Details
+              </div>
+            </div>
+            <div
+              id="imagesDetails"
+              class="detail-div flex-wrap gap-2 col-12 px-2"
+            ></div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Image to Text Ratio -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.images_text_ratio}}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Next Steps -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.nextsteps|length}}
+                </h5>
+              </div>
+              <div
+                id="nextstepsDetailsBtn"
+                class="border-prime rounded btn-light px-2 py-1 detail-div-btn"
+              >
+                Details
+              </div>
+            </div>
+            <div
+              id="nextstepsDetails"
+              class="detail-div flex-wrap gap-2 col-12 px-2"
+            ></div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Blank Subject -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.blank_subject}}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Error Count -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.error_count}}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Total HTML Tags -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.number_html_tags}}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Spammy -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.spammy}}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">String Size -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.string_size}}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            id="contentAnalysisDetails"
+            class="d-flex flex-column col-12 justify-content-between border-bottom-light px-4 p-3"
+          >
+            <div
+              class="d-flex flex-row gap-3 col-12 justify-content-between align-items-center"
+            >
+              <div class="d-flex gap-2 justify-content-between">
+                <h5 class="m-0 p-0 fw-semibold">Total No. of Images -</h5>
+                <h5 class="m-0 p-0 fw-semibold">
+                  {{response.analysis_results.number_images}}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div
+        id="banner1"
+        class="border-prime rounded-3 my-2 p-3 gap-2 d-flex flex-column"
+      >
+        <h2 class="m-0 p-0">Sending Cold Emails?</h2>
+        <div
+          class="d-flex flex-column justify-content-center align-items-center p-2"
+        >
+          <p style="font-size: 1rem">
+            Neoleads Email Warmer boosts engagement, enhances reputation, and
+            elevates deliverability. Our AI-driven tool optimizes warm-ups,
+            teaches Google & Microsoft inbox placement, and monitors your email
+            score for peak performance.
+          </p>
+          <img src= {%static 'images/cold-emails.svg'%} alt="" class="img-fluid
+          col-8" />
+          <span
+            class="d-flex flex-row justify-content-between align-itmes-center btn-dark border-prime p-2 rounded"
+          >
+            Boost My Deliverability
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_body %}
+<script async>
+
+  var data = {{ data | safe}};
+
+  const DeliverabilityScoreDiv = document.querySelector('#DeliverabilityScore');
+
+  function scrollto(targetDivId) {
+      const targetDiv = document.querySelector('#' + targetDivId);
+      targetDiv.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  let activeDetailsBtn = null;
+
+  const addToggleListener = (btn, div) => {
+      if (btn) {
+          btn.addEventListener('click', () => {
+              toggleDetails(btn, div);
+          });
+      }
+  };
+
+  const toggleDetails = (detailsBtn, detailsDiv) => {
+      if (activeDetailsBtn === detailsBtn) {
+          detailsDiv.style.display = "none";
+          activeDetailsBtn = null;
+      } else {
+          document.querySelectorAll(".detail-div").forEach((div) => {
+              div.style.display = "none";
+          });
+          detailsDiv.style.display = "flex";
+          activeDetailsBtn = detailsBtn;
+      }
+  };
+
+  const toggleDetailButtons = [
+      { btn: "#BlacklistsDetailsBtn", div: "#BlacklistsDetails" },
+      { btn: "#ChecksDetailsBtn", div: "#ChecksDetails" },
+      { btn: "#ConfigDetailsBtn", div: "#ConfigDetails" },
+      { btn: "#spamWordsDetailsBtn", div: "#spamWordsDetails" },
+      { btn: "#containLinksDetailsBtn", div: "#containLinksDetails" },
+      { btn: "#emailCodeDetailsBtn", div: "#emailCodeDetails" }
+  ];
+
+  toggleDetailButtons.forEach(({ btn, div }) => {
+      addToggleListener(document.querySelector(btn), document.querySelector(div));
+  });
+
+  document.querySelectorAll(".detail-div").forEach((div) => {
+      div.style.display = "none";
+  });
+  const deliverDetailBtn = document.querySelector('#deliverDetails');
+  const deliverOverviewBtn = document.querySelector('#deliverOverview');
+  const deliverReport = document.querySelector('#deliverReport');
+  const dataResult = data.results;
+  const container1 = document.createElement('div');
+  const container2 = document.createElement('div');
+
+  container1.innerHTML = `
+      <div class="row col-12 justify-content-between align-items-center px-2">
+          <div class="col-md-12 col-lg-8 justify-content-center align-items-center">
+              <div class="table-responsive">
+                  <table class="table table-hover">
+                      <colgroup>
+                          <col style="width: 25%;">
+                              <col style="width: 50%;">
+                                  <col style="width: 25%;">
+                                  </colgroup>
+                                  <tbody id="dataSection"></tbody>
+                              </table>
+                          </div>
+                      </div>
+                      <div class="col-md-12 col-lg-4 d-flex justify-content-center align-items-center">
+                          <div id="chartSection" class="px-2">
+                              <canvas id="myChart"></canvas>
+                          </div>
+                      </div>
+              </div>`;
+
+  function createEmailDiv(name, desc, email, provider, statusText) {
+      const emailDiv = document.createElement('div');
+      emailDiv.classList.add('col-12', 'd-flex', 'flex-row', 'justify-content-around', 'align-items-center', 'border-bottom-light', 'p-2', 'px-4', 'm-0');
+      emailDiv.innerHTML = `
+              <div class="col-2 p-0 m-0 d-flex justify-content-start align-items-center">
+                  <h5>${name}</h5>
+              </div>
+              <div class="col-4 m-0 p-0 d-flex flex-column">
+                  <h5>${email}</h5>
+                  <p>${desc}</p>
+              </div>
+              <div class="col-3 p-0 m-0 d-flex justify-content-center align-items-center">
+                  <span class="border-prime rounded bg-prime text-white px-2 py-1">${provider}</span>
+              </div>
+              <div class="col-3 p-0 m-0 d-flex justify-content-center align-items-center">
+                  <span id="status" class="border-prime rounded btn-light px-2 py-1">${statusText}</span>
+              </div>
+              `;
+
+      return emailDiv;
+  }
+  console.log(dataResult.received_in)
+  function detailsActive() {
+      container2.innerHTML = '';
+      container2.classList.add('col-12', 'p-0', 'd-flex', 'flex-column');
+      dataResult.forEach((items) => {
+          const emailDiv = createEmailDiv(items.first_name, items.desc, items.email, items.provider, items.received_in);
+          container2.appendChild(emailDiv);
+      });
+  }
+
+  deliverDetailBtn.addEventListener('click', () => {
+      deliverDetailBtn.classList.add('text-decoration-underline', 'bg-light');
+      deliverOverviewBtn.classList.remove('text-decoration-underline', 'bg-light');
+      container1.style.display = 'none';
+      container2.style.display = 'flex';
+      detailsActive();
+  });
+
+  deliverOverviewBtn.addEventListener('click', () => {
+      deliverOverviewBtn.classList.add('text-decoration-underline', 'bg-light');
+      deliverDetailBtn.classList.remove('text-decoration-underline', 'bg-light');
+      container2.innerHTML = '';
+      container2.style.display = 'none';
+      container1.style.display = 'flex';
+  });
+
+  deliverReport.appendChild(container1);
+  deliverReport.appendChild(container2);
+  container2.style.display = 'none';
+
+
+  const SuccessfulChecks = document.querySelector('#SuccessfulChecks');
+  const domain = data.domain;
+  const count = (domain.spf_valid ? 1 : 0) + (domain.dkim_valid ? 1 : 0) + (domain.dmarc_valid ? 1 : 0);
+  SuccessfulChecks.innerText = ` - ${count}/3 Successful`;
+
+  function populateDetails(dataArray, container, displayBtn) {
+      if (dataArray.length === 0) {
+          displayBtn.style.display = 'none';
+      } else {
+          container.innerHTML = dataArray.map((item, index) => `
+            <span class="border-prime rounded p-1">
+              <h5 class="m-0 p-0 fw-semibold">${index + 1}. ${item}</h5>
+            </span>
+          `).join('');
+      }
+  }
+
+  const analysis = data.analysis_results;
+  const spamWordsDetails = document.querySelector('#spamWordsDetails');
+  const spamWordsBtn = document.querySelector('#spamWordsDetailsBtn');
+  const containLinksDetails = document.querySelector('#containLinksDetails');
+  const containLinksDetailsBtn = document.querySelector('#containLinksDetailsBtn');
+  const emailAttachmentsDetailsBtn = document.querySelector('#emailAttachmentsDetailsBtn');
+  const imagesDetailsBtn = document.querySelector('#imagesDetailsBtn');
+  const imagesDetails = document.querySelector('#imagesDetails');
+  const nextstepsDetails = document.querySelector('#nextstepsDetails');
+  const nextstepsDetailsBtn = document.querySelector('#nextstepsDetailsBtn');
+
+  populateDetails(analysis.spamwords, spamWordsDetails, spamWordsBtn);
+  populateDetails(analysis.links_results.details, containLinksDetails, containLinksDetailsBtn);
+  populateDetails(analysis.attachments, containLinksDetails, emailAttachmentsDetailsBtn);
+  populateDetails(analysis.images, imagesDetails, imagesDetailsBtn);
+  populateDetails(analysis.nextsteps, nextstepsDetails, nextstepsDetailsBtn);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/email_report.js' %}"></script>
+{% endblock %}
